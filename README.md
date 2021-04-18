@@ -6,6 +6,7 @@ A simple REST API written in Golang made for practice.
 - [x] Add a new blog
 
 ## TODO
+- [ ] Restructure code
 - [ ] Add persistent data store using SQL database.
 - [ ] Add admin auth so only they can add new blogs
 - [ ] A simple frontend to display blogs
