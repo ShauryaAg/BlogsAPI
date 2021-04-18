@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -18,6 +19,10 @@ type Blog struct {
 	Author string `json:"Author"`
 	Content string `json:"Content"`
 	DateTime time.Time `json:"DateTime"`
+}
+
+type AdminPortal struct {
+	password string
 }
 
 type BlogHandlers struct {
@@ -125,6 +130,30 @@ func (h *BlogHandlers) post(w http.ResponseWriter, r *http.Request) {
 	h.Lock()
 	h.store[blog.ID] = blog
 	defer h.Unlock()
+
+	
+	jsonBytes, err := json.Marshal(blog)
+	if err != nil {
+		fmt.Println("err", err)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
+	}
+
+	w.Header().Add("content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonBytes)
+}
+
+func (a AdminPortal) authHandler(w http.ResponseWriter, r *http.Request) {
+	user, pass, ok := r.BasicAuth()
+	if !ok || user != "admin" || pass != a.password {
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte("401 - unauthorized"))
+		return
+	}
+
+	// TODO: Admin Portal
+	w.Write([]byte("Admin Portal")) 
 }
 
 func blogHandlers() *BlogHandlers {
@@ -133,10 +162,24 @@ func blogHandlers() *BlogHandlers {
 	}
 }
 
+// constructor
+func adminPortal() *AdminPortal {
+	password := os.Getenv("ADMIN_PASSWORD")
+	if password == "" {
+		panic("ADMIN PASSWORD Required")
+	}
+	
+	return &AdminPortal{
+		password: password,
+	}
+}
+
 func main(){ 
-	h := blogHandlers()
-	http.HandleFunc("/blog", h.getBlog) // GET /blog/<id>
-	http.HandleFunc("/blogs", h.blogs) // GET, POST /blogs
+	blogHandlers := blogHandlers()
+	auth := adminPortal()
+	http.HandleFunc("/admin", auth.authHandler) // GET /admin -u admin:password
+	http.HandleFunc("/blog", blogHandlers.getBlog) // GET /blog/<id>
+	http.HandleFunc("/blogs", blogHandlers.blogs) // GET, POST /blogs
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		panic(err)
