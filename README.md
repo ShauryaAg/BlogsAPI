@@ -6,6 +6,7 @@ A simple REST API written in Golang made for practice.
 - [x] Add a new blog
 - [x] Restructure code
 - [x] Add persistent data store using SQL database.
+- [x] Added Auth
 
 ## TODO
 - [ ] Dockerize the whole setup
