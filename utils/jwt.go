@@ -23,17 +23,17 @@ func CreateToken(admin models.Admin) (string, error) {
 	return token, nil
 }
 
-func ParseToken(tokenString string) jwt.Claims {
+func ParseToken(tokenString string) (jwt.Claims, error) {
 
 	token, err := jwt.ParseWithClaims(tokenString, &jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte("SuperSecret"), nil
 	})
 
 	if claims, ok := token.Claims.(*jwt.MapClaims); ok && token.Valid {
-		return claims
+		return claims, err
 	} else {
 		fmt.Println(err)
 	}
 
-	return nil
+	return nil, err
 }

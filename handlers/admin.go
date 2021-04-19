@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 
@@ -107,7 +106,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if valid {
 		token, err = utils.CreateToken(admin)
 		if err != nil {
-			log.Fatal(err.Error())
+			fmt.Println(err)
 		}
 	}
 
