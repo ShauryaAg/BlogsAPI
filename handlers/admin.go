@@ -6,12 +6,17 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"BlogsAPI/db"
 	"BlogsAPI/models"
 	"BlogsAPI/utils"
 
 	"github.com/google/uuid"
+)
+
+var (
+	password = os.Getenv("ADMIN_PASS")
 )
 
 func AuthHandler(w http.ResponseWriter, r *http.Request) {
