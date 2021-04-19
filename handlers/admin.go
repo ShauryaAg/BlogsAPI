@@ -110,7 +110,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	jsonBytes, err := json.Marshal(token)
+	type AdminToken struct {
+		Id       string
+		Username string
+		Token    string
+	}
+
+	jsonBytes, err := json.Marshal(AdminToken{admin.ID, admin.Username, token})
 	if err != nil {
 		fmt.Println("err", err)
 		w.WriteHeader(http.StatusBadRequest)
