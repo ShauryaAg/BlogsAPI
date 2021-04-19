@@ -37,5 +37,5 @@ func CreateDatabase() (*gorm.DB, error) {
 
 func migrateDatabase(db *gorm.DB) {
 	db.AutoMigrate(&models.Blog{})
-	db.AutoMigrate(&models.AdminPortal{})
+	db.AutoMigrate(&models.Admin{})
 }
