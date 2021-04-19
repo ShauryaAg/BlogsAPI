@@ -7,7 +7,7 @@ import (
 )
 
 type Admin struct {
-	ID string
+	ID       string
 	Username string
 	Password string
 }

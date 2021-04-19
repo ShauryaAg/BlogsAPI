@@ -17,7 +17,7 @@ func CreateToken(admin models.Admin) (string, error) {
 
 	token, err := at.SignedString([]byte("SuperSecret"))
 	if err != nil {
-	   return "", err
+		return "", err
 	}
 
 	return token, nil

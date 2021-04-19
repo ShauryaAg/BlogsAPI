@@ -21,7 +21,7 @@ const (
 	user     = "postgres"
 	password = "postgres"
 	dbname   = "postgres"
-  )
+)
 
 func CreateDatabase() (*gorm.DB, error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
@@ -33,7 +33,6 @@ func CreateDatabase() (*gorm.DB, error) {
 	migrateDatabase(db)
 	return db, nil
 }
-
 
 func migrateDatabase(db *gorm.DB) {
 	db.AutoMigrate(&models.Blog{})

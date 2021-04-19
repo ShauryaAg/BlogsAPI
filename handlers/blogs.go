@@ -19,7 +19,7 @@ func GetAllBlogs(w http.ResponseWriter, r *http.Request) {
 	var blogs []models.Blog
 
 	db.DBCon.Find(&blogs)
-	
+
 	jsonBytes, err := json.Marshal(blogs)
 	if err != nil {
 		fmt.Print("err", err)
@@ -55,7 +55,6 @@ func GetBlog(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-
 	w.Header().Add("content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonBytes)
@@ -68,16 +67,16 @@ func CreateBlog(w http.ResponseWriter, r *http.Request) {
 		fmt.Print("err", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
-		return 
+		return
 	}
-	
+
 	ct := r.Header.Get("content-type")
 	if ct != "application/json" {
 		w.WriteHeader(http.StatusUnsupportedMediaType)
 		w.Write([]byte(fmt.Sprintf("Need content-type: 'application/json', but got %s", ct)))
-		return 
+		return
 	}
-	
+
 	var blog models.Blog
 	err = json.Unmarshal(bodyBytes, &blog)
 	if err != nil {
@@ -86,11 +85,11 @@ func CreateBlog(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
-	
+
 	blog.ID = uuid.New().String()
 	blog.DateTime = time.Now()
 	db.DBCon.Create(&blog)
-	
+
 	jsonBytes, err := json.Marshal(blog)
 	if err != nil {
 		fmt.Println("err", err)
