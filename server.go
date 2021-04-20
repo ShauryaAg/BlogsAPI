@@ -30,8 +30,17 @@ func main() {
 	r.HandleFunc("/admin", handlers.AuthHandler)                 // GET /admin -u admin:password
 	r.HandleFunc("/login", handlers.Login).Methods("POST")       // POST /login
 	r.HandleFunc("/register", handlers.Register).Methods("POST") // POST /register
-	r.HandleFunc("/blog/{id}", handlers.GetBlog).Methods("GET")  // GET /blog/<id>
-	r.HandleFunc("/blogs", handlers.GetAllBlogs).Methods("GET")  // GET /blogs
+
+	r.HandleFunc("/blog/{id}", handlers.GetBlog).Methods("GET") // GET /blog/<id>
+	r.HandleFunc("/blogs", handlers.GetAllBlogs).Methods("GET") // GET /blogs
+
+	// Auth routes
+	r.Handle("/blog/{id}", middlewares.AuthMiddleware(
+		http.HandlerFunc(handlers.UpdateBlog),
+	)).Methods("PATCH") // DELETE /blog/<id> Auth: Bearer <Token>
+	r.Handle("/blog/{id}", middlewares.AuthMiddleware(
+		http.HandlerFunc(handlers.DeleteBlog),
+	)).Methods("DELETE") // DELETE /blog/<id> Auth: Bearer <Token>
 	r.Handle("/blogs", middlewares.AuthMiddleware(
 		http.HandlerFunc(handlers.CreateBlog),
 	)).Methods("POST") // POST /blogs Auth: Bearer <Token>

@@ -17,6 +17,7 @@ For a single blog:
 - [x] A simple frontend to display blogs
 - [x] Markdown parsing for blogs
 - [x] Dockerize the whole setup
+- [x] Add update and delete blog routes
 
 ## TODO
 
