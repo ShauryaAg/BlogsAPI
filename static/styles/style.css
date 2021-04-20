@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "Product Sans";
+  src: url("../fonts/ProductSans-Regular.ttf");
+}
+
+* {
+  font-family: "Product Sans";
+}
+
+.title-header {
+  font-size: 2em;
+  font-weight: 700;
+  position: relative;
+}
+
+.title-header > span {
+  background-color: #ffffff;
+}
+
+.title-header::after {
+  content: "";
+  display: block;
+  width: 80%;
+  height: 3px;
+  background: #707070;
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  z-index: -2;
+}
+
+.card {
+  margin: 1em;
+  padding: 1.5em 0.5em;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 10%),
+    0 10px 10px -5px rgb(0 0 0 / 4%);
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.card-content {
+  width: 100%;
+  max-height: 5em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+a {
+  color: #fd005d;
+}
+
+a:hover {
+  text-decoration: none;
+}

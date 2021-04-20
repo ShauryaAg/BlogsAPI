@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs | ShauryaAg</title>
+
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Styles  -->
+    <link rel="stylesheet" href="/static/styles/style.css">
+
+</head>
+
+<body class="container mt-3">
+    <!-- Blogs -->
+    <div class="title-header my-4">
+        <span>Blogs</span><span style="color: #FD005D;">.</span>
+    </div>
+
+    {{ range $key, $value := .Blogs }}
+    <a href="/b/{{ $value.ID }}">
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ $value.Title}}</h2>
+                        <p class="card-text"><small class="text-muted">{{ $value.DateTime.Format "Jan 02, 2006"
+                                }}</small>
+                        </p>
+                        <p class="card-text card-content">{{ $value.Content }}</p>
+                        <p class="card-text"><small class="text-muted">{{ $value.Author }}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    {{ end }}
+
+</body>
+
+</html>
