@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"BlogsAPI/models"
 
@@ -15,19 +16,20 @@ var (
 	DBCon *gorm.DB
 )
 
-const (
-	host     = "localhost"
+var (
+	host     = os.Getenv("POSTGRES_HOST")
 	port     = 5432
-	user     = "postgres"
-	password = "postgres"
-	dbname   = "postgres"
+	user     = os.Getenv("POSTGRES_USER")
+	password = os.Getenv("POSTGRES_PASSWORD")
+	dbname   = os.Getenv("POSTGRES_DB")
 )
 
 func CreateDatabase() (*gorm.DB, error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	fmt.Println(psqlInfo)
 	db, err := gorm.Open("postgres", psqlInfo)
 	if err != nil {
-		log.Fatal("DB Connection failed")
+		log.Fatal("DB Connection failed: ", err)
 	}
 
 	migrateDatabase(db)
