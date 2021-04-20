@@ -29,11 +29,14 @@
             <div class="row no-gutters">
                 <div class="col-md-12">
                     <div class="card-body">
-                        <h2 class="card-title">{{ $value.Title}}</h2>
-                        <p class="card-text"><small class="text-muted">{{ $value.DateTime.Format "Jan 02, 2006"
-                                }}</small>
+                        <h2 class="card-title">{{ $value.Title | ParseMdToHtml }}</h2>
+                        <p class="card-text"><small class="text-muted">
+                                {{ $value.DateTime.Format "Jan 02, 2006" }}
+                            </small>
                         </p>
-                        <p class="card-text card-content">{{ $value.Content }}</p>
+                        <div class="card-text card-content">
+                            {{ $value.Content | ParseMdToHtml }}
+                        </div>
                         <p class="card-text"><small class="text-muted">{{ $value.Author }}</small></p>
                     </div>
                 </div>

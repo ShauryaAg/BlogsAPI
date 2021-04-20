@@ -1,3 +1,6 @@
+// Use this tool to convert newlines \n\n
+// https://www.gillmeister-software.com/online-tools/text/remove-line-breaks.aspx
+
 package views
 
 import (
@@ -8,6 +11,7 @@ import (
 	"text/template"
 
 	"BlogsAPI/models"
+	"BlogsAPI/utils"
 
 	"github.com/gorilla/mux"
 )
@@ -25,8 +29,10 @@ func BlogsView(w http.ResponseWriter, r *http.Request) {
 	bytes, _ := ioutil.ReadAll(response.Body)
 	json.Unmarshal(bytes, &blogs)
 
-	t, _ := template.ParseFiles("templates/blogs.html")
-	err = t.Execute(w, struct{ Blogs []models.Blog }{blogs})
+	t, _ := template.New("blogs.html").Funcs(
+		template.FuncMap{"ParseMdToHtml": utils.ParseMdToHtml},
+	).ParseFiles("templates/blogs.html")
+	err = t.ExecuteTemplate(w, "blogs.html", struct{ Blogs []models.Blog }{blogs})
 
 	if err != nil {
 		fmt.Println("error:", err)
@@ -49,8 +55,10 @@ func BlogView(w http.ResponseWriter, r *http.Request) {
 	bytes, _ := ioutil.ReadAll(response.Body)
 	json.Unmarshal(bytes, &blog)
 
-	t, _ := template.ParseFiles("templates/blog.html")
-	err = t.Execute(w, struct{ Blog models.Blog }{blog})
+	t, _ := template.New("blog.html").Funcs(
+		template.FuncMap{"ParseMdToHtml": utils.ParseMdToHtml},
+	).ParseFiles("templates/blog.html")
+	err = t.ExecuteTemplate(w, "blog.html", struct{ Blog models.Blog }{blog})
 	if err != nil {
 		fmt.Println("error:", err)
 		return

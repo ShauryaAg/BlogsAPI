@@ -25,13 +25,13 @@
     <div class="row no-gutters mt-3">
         <div class="col-md-12">
             <div class="card-body">
-                <h2 class="card-title">{{ .Blog.Title }}</h2>
+                <h2 class="card-title">{{ .Blog.Title | ParseMdToHtml }}</h2>
                 <p class="card-text">
                     <small class="text-muted">
                         {{ .Blog.Author }} on {{ .Blog.DateTime.Format "Jan 02, 2006" }}
                     </small>
                 </p>
-                <p class="card-text">{{ .Blog.Content }}</p>
+                <p class="card-text">{{ .Blog.Content | ParseMdToHtml }}</p>
             </div>
         </div>
     </div>
