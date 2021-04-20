@@ -1,10 +1,10 @@
 A simple REST API written in Golang made for practice.
 
 To display all the blogs:
-![image](https://user-images.githubusercontent.com/31778302/115429144-c1dbe900-a220-11eb-8b2e-ad44cefa52d0.png)
+![image](https://user-images.githubusercontent.com/31778302/115430234-cfde3980-a221-11eb-9f4a-ea2e2b7789ed.png)
 
 For a single blog:
-![image](https://user-images.githubusercontent.com/31778302/115429373-fbacef80-a220-11eb-9d8a-5cdb382c4d8a.png)
+![image](https://user-images.githubusercontent.com/31778302/115430701-382d1b00-a222-11eb-81ed-93e402cb38d2.png)
 
 ## Features:
 
